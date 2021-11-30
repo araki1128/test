@@ -102,18 +102,13 @@
 //                 const xrHelper = await scene.createDefaultXRExperienceAsync({
 //                     floorMeshes: [environment.ground]
 //                 });
-                  const xr = await scene.createDefaultXRExperienceAsync({
-                      uiOptions: {
-                        sessionMode: "immersive-ar",
-                      },
-                      optionalFeatures: true,
-                   });
-//                 xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
-//                     xrInput: xr.input,
-//                     jointMeshes: {
-//                         enablePhysics: true
-//                     }
-//                 });
+                  const xr = await scene.createDefaultXRExperienceAsync();
+                 xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
+                     xrInput: xr.input,
+                     jointMeshes: {
+                         enablePhysics: true
+                     }
+                 });
             
                 return scene;
             
