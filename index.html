@@ -99,8 +99,15 @@
                 panel.addControl(picker);
             
                 // XR
-                const xrHelper = await scene.createDefaultXRExperienceAsync({
-                    floorMeshes: [environment.ground]
+//                 const xrHelper = await scene.createDefaultXRExperienceAsync({
+//                     floorMeshes: [environment.ground]
+//                 });
+                  const xr = await scene.createDefaultXRExperienceAsync();
+                xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
+                    xrInput: xr.input,
+                    jointMeshes: {
+                        enablePhysics: true
+                    }
                 });
             
                 return scene;
