@@ -54,7 +54,7 @@
             var scene = new BABYLON.Scene(engine);
 
             // This creates and positions a free camera (non-mesh)
-            var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -5), scene);
+            var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 1, -5), scene);
 
             // This targets the camera to scene origin
             camera.setTarget(BABYLON.Vector3.Zero());
@@ -96,13 +96,15 @@
             picker.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
             picker.height = "350px";
             picker.width = "350px";
+            // 球体のカラー変更
             picker.onValueChangedObservable.add(function (value) {
                 sphere.material.diffuseColor.copyFrom(value);
             });
             panel.addControl(picker);
 
-            var sphere1 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 0.05, segments: 32 }, scene);
-            sphere1.position.y = 1.1;
+            var sphere1 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 1, segments: 2 }, scene);
+            sphere1.position.y = 1;
+            sphere1.position.x = 3;
 
             // XR
             //testXR
