@@ -69,42 +69,42 @@
             light.intensity = 0.7;
 
             // Our built-in 'sphere' shape.
-            var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 1.4, segments: 32 }, scene);
+            // var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 1.4, segments: 32 }, scene);
 
-            // Move the sphere upward 1/2 its height
-            sphere.position.y = 1;
+            // // Move the sphere upward 1/2 its height
+            // sphere.position.y = 1;
 
-            sphere.material = new BABYLON.StandardMaterial("sphereMat", scene);
+            // sphere.material = new BABYLON.StandardMaterial("sphereMat", scene);
 
             const environment = scene.createDefaultEnvironment();
 
             // GUI
-            var plane = BABYLON.Mesh.CreatePlane("plane", 1);
-            plane.position = new BABYLON.Vector3(1.4, 1.5, 0.4)
-            var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(plane);
-            var panel = new BABYLON.GUI.StackPanel();
-            advancedTexture.addControl(panel);
-            var header = new BABYLON.GUI.TextBlock();
-            header.text = "Color GUI";
-            header.height = "100px";
-            header.color = "white";
-            header.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-            header.fontSize = "120"
-            panel.addControl(header);
-            var picker = new BABYLON.GUI.ColorPicker();
-            picker.value = sphere.material.diffuseColor;
-            picker.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-            picker.height = "350px";
-            picker.width = "350px";
-            // 球体のカラー変更
-            picker.onValueChangedObservable.add(function (value) {
-                sphere.material.diffuseColor.copyFrom(value);
-            });
-            panel.addControl(picker);
+            // var plane = BABYLON.Mesh.CreatePlane("plane", 1);
+            // plane.position = new BABYLON.Vector3(1.4, 1.5, 0.4)
+            // var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(plane);
+            // var panel = new BABYLON.GUI.StackPanel();
+            // advancedTexture.addControl(panel);
+            // var header = new BABYLON.GUI.TextBlock();
+            // header.text = "Color GUI";
+            // header.height = "100px";
+            // header.color = "white";
+            // header.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+            // header.fontSize = "120"
+            // panel.addControl(header);
+            // var picker = new BABYLON.GUI.ColorPicker();
+            // picker.value = sphere.material.diffuseColor;
+            // picker.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+            // picker.height = "350px";
+            // picker.width = "350px";
+            // // 球体のカラー変更
+            // picker.onValueChangedObservable.add(function (value) {
+            //     sphere.material.diffuseColor.copyFrom(value);
+            // });
+            // panel.addControl(picker);
 
-            var sphere1 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 1, segments: 2 }, scene);
-            sphere1.position.y = 1;
-            sphere1.position.x = 3;
+            // var sphere1 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 1, segments: 2 }, scene);
+            // sphere1.position.y = 1;
+            // sphere1.position.x = 3;
 
             // XR
             //testXR
@@ -115,7 +115,9 @@
             xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
                 xrInput: xr.input,
                 jointMeshes: {
-                    enablePhysics: true
+                    enablePhysics: true,
+                    sourceMesh: BABYLON.BoxBuilder.CreateBox("jointParent", { size: 1 }),
+                    keepOriginalVisible: true, // will keep the original instance visible
                 }
             });
 
