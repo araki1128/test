@@ -53,9 +53,11 @@
             // This creates a basic Babylon Scene object (non-mesh)
             var scene = new BABYLON.Scene(engine);
 
+            scene.gravity = new BABYLON.Vector3(0, -10, 0);
+
             // This creates and positions a free camera (non-mesh)
             var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 1, -5), scene);
-            camera.applyGravity = false;
+            camera.applyGravity = true;
             // This targets the camera to scene origin
             camera.setTarget(BABYLON.Vector3.Zero());
 
@@ -102,21 +104,36 @@
             });
             panel.addControl(picker);
 
-            // var sphere1 = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 1, segments: 2 }, scene);
-            // sphere1.position.y = 1;
-            // sphere1.position.x = 3;
+            var easyButton = BABYLON.GUI.Button.CreateSimpleButton("onoff", "off");
 
+            let throwBalls = false
+            easyButton.onPointerClickObservable.add(() => {
+                console.log(throwBalls)
+                if (!throwBalls) {
+                    console.log(throwBalls)
+                    easyButton.background = "green";
+                    easyButton.textBlock.text = 'on';
+                    throwBalls = true
+                } else {
+                    console.log(throwBalls)
+                    easyButton.background = "red";
+                    easyButton.textBlock.text = 'off';
+                    throwBalls = false
+                }
+            });
+
+            easyButton.width = 0.5;
+            easyButton.height = "80px";
+            easyButton.color = "white";
+            easyButton.background = "red";
+            easyButton.fontSize = 60;
+            panel.addControl(easyButton);
             // XR
             // const xrHelper = await scene.createDefaultXRExperienceAsync({
             //     floorMeshes: [environment.ground]
             // });
 
-            var g = new BABYLON.Vector3(0, 0, 0);
-
-            scene.onPointerUp = function () {
-                // g.y *= -1;
-                scene.getPhysicsEngine().setGravity(g);
-            }
+            scene.enablePhysics();
 
             const xr = await scene.createDefaultXRExperienceAsync();
             xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
@@ -125,7 +142,7 @@
                     enablePhysics: true
                 }
             });
-
+            
             return scene;
 
         };
