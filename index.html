@@ -107,51 +107,51 @@
             });
             panel.addControl(picker);
 
-            let simpleBtton = BABYLON.GUI.Button.CreateSimpleButton("onoff", "off");
+            let easyButton = BABYLON.GUI.Button.CreateSimpleButton("onoff", "off");
 
             let throwBalls = false
-            simpleBtton.onPointerClickObservable.add(() => {
+            easyButton.onPointerClickObservable.add(() => {
                 console.log(throwBalls)
                 if (!throwBalls) {
                     console.log(throwBalls)
-                    simpleBtton.background = "green";
-                    simpleBtton.textBlock.text = 'on';
+                    easyButton.background = "green";
+                    easyButton.textBlock.text = 'on';
                     throwBalls = true
                 } else {
                     console.log(throwBalls)
-                    simpleBtton.background = "red";
-                    simpleBtton.textBlock.text = 'off';
+                    easyButton.background = "red";
+                    easyButton.textBlock.text = 'off';
                     throwBalls = false
                 }
             });
 
-            simpleBtton.width = 0.5;
-            simpleBtton.height = "80px";
-            simpleBtton.color = "white";
-            simpleBtton.background = "red";
-            simpleBtton.fontSize = 60;
-            panel.addControl(simpleBtton);
+            easyButton.width = 0.5;
+            easyButton.height = "80px";
+            easyButton.color = "white";
+            easyButton.background = "red";
+            easyButton.fontSize = 60;
+            panel.addControl(easyButton);
 
 
             const manager = new BABYLON.GUI.GUI3DManager(scene);
-            let holoGraphicButton = new BABYLON.GUI.HolographicButton('PlayPauseButton');
+            let playPauseButton = new BABYLON.GUI.HolographicButton('PlayPauseButton');
 
             let status = false
 
-            holoGraphicButton.onPointerClickObservable.add(() => {
+            playPauseButton.onPointerClickObservable.add(() => {
                 if (status) {
                     console.log('true')
-                    holoGraphicButton.text = "true"
+                    playPauseButton.text = "true"
                     status = false
                 } else {
                     console.log('false')
-                    holoGraphicButton.text = "false"
+                    playPauseButton.text = "false"
                     status = true
 
                 }
             });
 
-            holoGraphicButton.text = "true/false";
+            playPauseButton.text = "true/false";
 
             manager.addControl(playPauseButton);
             // XR
@@ -161,12 +161,10 @@
 
             scene.enablePhysics();
 
-            const xr = await scene.createDefaultXRExperienceAsync();
-
-            // {
-            //     sessionMode: 'immersive-ar',
-            //     referenceSpeceType: 'unbounded'
-            // }
+            const xr = await scene.createDefaultXRExperienceAsync({
+                sessionMode: 'immersive-ar',
+                referenceSpeceType: 'unbounded'
+            });
 
             xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
                 xrInput: xr.input,
