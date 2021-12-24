@@ -78,7 +78,7 @@
 
             sphere.material = new BABYLON.StandardMaterial("sphereMat", scene);
 
-            const environment = scene.createDefaultEnvironment();
+            // const environment = scene.createDefaultEnvironment();
 
             // GUI
             var plane = BABYLON.Mesh.CreatePlane("plane", 1);
@@ -104,7 +104,7 @@
             });
             panel.addControl(picker);
 
-            var easyButton = BABYLON.GUI.Button.CreateSimpleButton("onoff", "off");
+            let easyButton = BABYLON.GUI.Button.CreateSimpleButton("onoff", "off");
 
             let throwBalls = false
             easyButton.onPointerClickObservable.add(() => {
@@ -128,6 +128,29 @@
             easyButton.background = "red";
             easyButton.fontSize = 60;
             panel.addControl(easyButton);
+
+
+            const manager = new BABYLON.GUI.GUI3DManager(scene);
+            let playPauseButton = new BABYLON.GUI.HolographicButton('PlayPauseButton');
+
+            let status = false
+
+            playPauseButton.onPointerClickObservable.add(() => {
+                if (status) {
+                    console.log('true')
+                    playPauseButton.text = "true"
+                    status = false
+                } else {
+                    console.log('false')
+                    playPauseButton.text = "false"
+                    status = true
+
+                }
+            });
+
+            playPauseButton.text = "true/false";
+
+            manager.addControl(playPauseButton);
             // XR
             // const xrHelper = await scene.createDefaultXRExperienceAsync({
             //     floorMeshes: [environment.ground]
@@ -135,14 +158,18 @@
 
             scene.enablePhysics();
 
-            const xr = await scene.createDefaultXRExperienceAsync();
+            const xr = await scene.createDefaultXRExperienceAsync({
+                sessionMode: 'immersive-ar',
+                referenceSpeceType: 'unbounded'
+            });
+
             xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
                 xrInput: xr.input,
                 jointMeshes: {
                     enablePhysics: true
                 }
             });
-            
+
             return scene;
 
         };
