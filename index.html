@@ -107,53 +107,53 @@
             });
             panel.addControl(picker);
 
-            let easyButton = BABYLON.GUI.Button.CreateSimpleButton("onoff", "off");
+            let simpleBtton = BABYLON.GUI.Button.CreateSimpleButton("onoff", "off");
 
             let throwBalls = false
-            easyButton.onPointerClickObservable.add(() => {
+            simpleBtton.onPointerClickObservable.add(() => {
                 console.log(throwBalls)
                 if (!throwBalls) {
                     console.log(throwBalls)
-                    easyButton.background = "green";
-                    easyButton.textBlock.text = 'on';
+                    simpleBtton.background = "green";
+                    simpleBtton.textBlock.text = 'on';
                     throwBalls = true
                 } else {
                     console.log(throwBalls)
-                    easyButton.background = "red";
-                    easyButton.textBlock.text = 'off';
+                    simpleBtton.background = "red";
+                    simpleBtton.textBlock.text = 'off';
                     throwBalls = false
                 }
             });
 
-            easyButton.width = 0.5;
-            easyButton.height = "80px";
-            easyButton.color = "white";
-            easyButton.background = "red";
-            easyButton.fontSize = 60;
-            panel.addControl(easyButton);
+            simpleBtton.width = 0.5;
+            simpleBtton.height = "80px";
+            simpleBtton.color = "white";
+            simpleBtton.background = "red";
+            simpleBtton.fontSize = 60;
+            panel.addControl(simpleBtton);
 
 
             const manager = new BABYLON.GUI.GUI3DManager(scene);
-            let playPauseButton = new BABYLON.GUI.HolographicButton('PlayPauseButton');
+            let holoGraphicBtton = new BABYLON.GUI.HolographicButton('holoGraphicBtton');
 
             let status = false
 
-            playPauseButton.onPointerClickObservable.add(() => {
+            holoGraphicBtton.onPointerClickObservable.add(() => {
                 if (status) {
                     console.log('true')
-                    playPauseButton.text = "true"
+                    holoGraphicBtton.text = "true"
                     status = false
                 } else {
                     console.log('false')
-                    playPauseButton.text = "false"
+                    holoGraphicBtton.text = "false"
                     status = true
 
                 }
             });
 
-            playPauseButton.text = "true/false";
+            holoGraphicBtton.text = "true/false";
 
-            manager.addControl(playPauseButton);
+            manager.addControl(holoGraphicBtton);
             // XR
             // const xrHelper = await scene.createDefaultXRExperienceAsync({
             //     floorMeshes: [environment.ground]
