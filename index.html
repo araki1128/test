@@ -51,14 +51,17 @@
         var createScene = async function () {
 
             // This creates a basic Babylon Scene object (non-mesh)
+            // これにより、基本的なバビロンシーンオブジェクト（非メッシュ）が作成されます。
             var scene = new BABYLON.Scene(engine);
 
             scene.gravity = new BABYLON.Vector3(0, -10, 0);
 
             // This creates and positions a free camera (non-mesh)
+            // これにより、無料のカメラ（非メッシュ）が作成および配置されます
             var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 1, -5), scene);
             camera.applyGravity = true;
             // This targets the camera to scene origin
+            // これは、カメラをシーンの原点に向けます
             camera.setTarget(BABYLON.Vector3.Zero());
 
             // This attaches the camera to the canvas
@@ -104,51 +107,51 @@
             });
             panel.addControl(picker);
 
-            let easyButton = BABYLON.GUI.Button.CreateSimpleButton("onoff", "off");
+            let simpleBtton = BABYLON.GUI.Button.CreateSimpleButton("onoff", "off");
 
             let throwBalls = false
-            easyButton.onPointerClickObservable.add(() => {
+            simpleBtton.onPointerClickObservable.add(() => {
                 console.log(throwBalls)
                 if (!throwBalls) {
                     console.log(throwBalls)
-                    easyButton.background = "green";
-                    easyButton.textBlock.text = 'on';
+                    simpleBtton.background = "green";
+                    simpleBtton.textBlock.text = 'on';
                     throwBalls = true
                 } else {
                     console.log(throwBalls)
-                    easyButton.background = "red";
-                    easyButton.textBlock.text = 'off';
+                    simpleBtton.background = "red";
+                    simpleBtton.textBlock.text = 'off';
                     throwBalls = false
                 }
             });
 
-            easyButton.width = 0.5;
-            easyButton.height = "80px";
-            easyButton.color = "white";
-            easyButton.background = "red";
-            easyButton.fontSize = 60;
-            panel.addControl(easyButton);
+            simpleBtton.width = 0.5;
+            simpleBtton.height = "80px";
+            simpleBtton.color = "white";
+            simpleBtton.background = "red";
+            simpleBtton.fontSize = 60;
+            panel.addControl(simpleBtton);
 
 
             const manager = new BABYLON.GUI.GUI3DManager(scene);
-            let playPauseButton = new BABYLON.GUI.HolographicButton('PlayPauseButton');
+            let holoGraphicButton = new BABYLON.GUI.HolographicButton('PlayPauseButton');
 
             let status = false
 
-            playPauseButton.onPointerClickObservable.add(() => {
+            holoGraphicButton.onPointerClickObservable.add(() => {
                 if (status) {
                     console.log('true')
-                    playPauseButton.text = "true"
+                    holoGraphicButton.text = "true"
                     status = false
                 } else {
                     console.log('false')
-                    playPauseButton.text = "false"
+                    holoGraphicButton.text = "false"
                     status = true
 
                 }
             });
 
-            playPauseButton.text = "true/false";
+            holoGraphicButton.text = "true/false";
 
             manager.addControl(playPauseButton);
             // XR
