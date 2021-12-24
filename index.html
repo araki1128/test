@@ -161,10 +161,12 @@
 
             scene.enablePhysics();
 
-            const xr = await scene.createDefaultXRExperienceAsync({
-                sessionMode: 'immersive-ar',
-                referenceSpeceType: 'unbounded'
-            });
+            const xr = await scene.createDefaultXRExperienceAsync();
+
+            // {
+                // sessionMode: 'immersive-ar',
+                // referenceSpeceType: 'unbounded'
+            // }
 
             xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
                 xrInput: xr.input,
