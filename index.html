@@ -65,23 +65,29 @@
             camera.setTarget(BABYLON.Vector3.Zero());
 
             // This attaches the camera to the canvas
+            // これにより、カメラがキャンバスに接続されます
             camera.attachControl(canvas, true);
 
             // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+            // これにより、0,1,0を狙うライトが作成されます-空（メッシュ以外）に向けて
             var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
 
             // Default intensity is 1. Let's dim the light a small amount
+            // デフォルトの強度は1です。ライトを少し暗くしてみましょう。
             light.intensity = 0.7;
 
             // Our built-in 'sphere' shape.
+            // 組み込みの「球」形状。
             var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 1.4, segments: 32 }, scene);
 
             // Move the sphere upward 1/2 its height
+            // 球を高さの1/2だけ上に移動します
             sphere.position.y = 1;
 
             sphere.material = new BABYLON.StandardMaterial("sphereMat", scene);
 
-            // const environment = scene.createDefaultEnvironment();
+            // 環境メッシュ作成
+            const environment = scene.createDefaultEnvironment();
 
             // GUI
             var plane = BABYLON.Mesh.CreatePlane("plane", 1);
@@ -147,11 +153,10 @@
                     console.log('false')
                     holoGraphicBtton.text = "false"
                     status = true
-
                 }
             });
 
-            holoGraphicBtton.text = "true/false";
+            holoGraphicBtton.text = "false";
 
             manager.addControl(holoGraphicBtton);
             // XR
@@ -161,12 +166,12 @@
 
             scene.enablePhysics();
 
-            const xr = await scene.createDefaultXRExperienceAsync();
-
-            // {
-                // sessionMode: 'immersive-ar',
-                // referenceSpeceType: 'unbounded'
-            // }
+            // WebXR追加
+            const xr = await scene.createDefaultXRExperienceAsync({
+                sessionMode: 'immersive-ar',
+                referenceSpeceType: 'unbounded',
+                floorMeshes: [environment.ground]
+            });
 
             xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
                 xrInput: xr.input,
