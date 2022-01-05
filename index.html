@@ -69,12 +69,12 @@
             var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 1, scene);
         
             // Move the sphere upward 1/2 its height
-            sphere.position.y = 0.5;
+            sphere.position.y = 1;
         
             // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
             var ground = BABYLON.Mesh.CreateGround("ground1", 1, 1, 2, scene);
 
-            ground.position.y = 0.5;
+            ground.position.y = 1;
         
             var vrHelper = scene.createDefaultVRExperience({
                 positionScale: 1.0,
