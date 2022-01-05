@@ -86,6 +86,10 @@
 
             sphere.material = new BABYLON.StandardMaterial("sphereMat", scene);
 
+            var ground = BABYLON.Mesh.CreateGround("ground1", 2, 2, 4, scene);
+
+            ground.position.y = 0.8;
+
             // 環境メッシュ作成
             // const environment = scene.createDefaultEnvironment();
 
