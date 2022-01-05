@@ -87,7 +87,7 @@
             sphere.material = new BABYLON.StandardMaterial("sphereMat", scene);
 
             // 環境メッシュ作成
-            const environment = scene.createDefaultEnvironment();
+            // const environment = scene.createDefaultEnvironment();
 
             // GUI
             var plane = BABYLON.Mesh.CreatePlane("plane", 1);
@@ -169,8 +169,8 @@
             // WebXR追加
             const xr = await scene.createDefaultXRExperienceAsync({
                 sessionMode: 'immersive-ar',
-                referenceSpeceType: 'unbounded',
-                floorMeshes: [environment.ground]
+                referenceSpeceType: 'unbounded'
+                // floorMeshes: [environment.ground]
             });
 
             xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
