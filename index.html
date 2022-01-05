@@ -58,12 +58,12 @@
 
             // This creates and positions a free camera (non-mesh)
             // これにより、無料のカメラ（非メッシュ）が作成および配置されます
-            // var camera = new BABYLON.ArcRotateCamera("camera1", new BABYLON.Vector3(0, 1, -5), scene);
+            var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 1, -5), scene);
             // camera.applyGravity = true;
 
-            var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 10, new BABYLON.Vector3(0, 1, -5), scene);
+            // var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 10, new BABYLON.Vector3(0, 1, -5), scene);
 
-            camera.setPosition(new BABYLON.Vector3(0, 0, -6));
+            // camera.setPosition(new BABYLON.Vector3(0, 0, -6));
 
             // This targets the camera to scene origin
             // これは、カメラをシーンの原点に向けます
