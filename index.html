@@ -169,7 +169,9 @@
             // WebXR追加
             const xr = await scene.createDefaultXRExperienceAsync({
                 sessionMode: 'immersive-ar',
-                referenceSpeceType: 'unbounded'
+                referenceSpeceType: 'unbounded',
+                positionScale: 1.0,
+                defaultHeight: 1.5
                 // floorMeshes: [environment.ground]
             });
 
