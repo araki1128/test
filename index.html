@@ -178,11 +178,12 @@
             // WebXR追加
             const xr = await scene.createDefaultXRExperienceAsync({
                 sessionMode: 'immersive-ar',
-                referenceSpeceType: 'unbounded',
-                positionScale: 3.0,
-                defaultHeight: 1.5
+                referenceSpeceType: 'unbounded'
                 // floorMeshes: [environment.ground]
             });
+
+            // positionScale: 3.0,
+            // defaultHeight: 1.5
 
             xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
                 xrInput: xr.input,
