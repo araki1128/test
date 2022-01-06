@@ -54,11 +54,11 @@
             // これにより、基本的なバビロンシーンオブジェクト（非メッシュ）が作成されます。
             var scene = new BABYLON.Scene(engine);
 
-            scene.gravity = new BABYLON.Vector3(0, -10, 0);
+            // scene.gravity = new BABYLON.Vector3(0, -10, 0);
 
             // This creates and positions a free camera (non-mesh)
             // これにより、無料のカメラ（非メッシュ）が作成および配置されます
-            var camera = new BABYLON.DeviceOrientationCamera("camera1", new BABYLON.Vector3(0, 1, -5), scene);
+            var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 1, -5), scene);
             // camera.applyGravity = true;
             // FreeCamera
             // var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 10, new BABYLON.Vector3(0, 1, -5), scene);
