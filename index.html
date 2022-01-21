@@ -58,7 +58,7 @@
 
             // This creates and positions a free camera (non-mesh)
             // これにより、無料のカメラ（非メッシュ）が作成および配置されます
-            var camera = new BABYLON.UniversalCamera("camera1", new BABYLON.Vector3(0, 1, -5), scene);
+            var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 1, -5), scene);
             // camera.applyGravity = true;
             // FreeCamera
             // var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 10, new BABYLON.Vector3(0, 1, -5), scene);
@@ -83,15 +83,15 @@
 
             // Our built-in 'sphere' shape.
             // 組み込みの「球」形状。
-            var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 1.4, segments: 32 }, scene);
+            var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 1.4, segments: 32 });
 
             // Move the sphere upward 1/2 its height
             // 球を高さの1/2だけ上に移動します
             sphere.position.y = 1;
 
-            sphere.material = new BABYLON.StandardMaterial("sphereMat", scene);
+            sphere.material = new BABYLON.StandardMaterial("sphereMat");
 
-            var ground = BABYLON.Mesh.CreateGround("ground1", 2, 2, 4, scene);
+            var ground = BABYLON.Mesh.CreateGround("ground1", 2, 2, 4);
 
             ground.position.y = 0.8;
 
@@ -110,6 +110,13 @@
             header.color = "white";
             header.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
             header.fontSize = "120"
+
+
+            let num = 0;
+
+            setInterval(() => {
+                header.text = `num: ${num}`
+            })
             panel.addControl(header);
             var picker = new BABYLON.GUI.ColorPicker();
             picker.value = sphere.material.diffuseColor;
@@ -166,6 +173,38 @@
             });
 
             holoGraphicBtton.text = "false";
+
+
+            const Texture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI('ui');
+            var sv1 = new BABYLON.GUI.ScrollViewer();
+            sv1.thickness = 7;
+            sv1.color = "#dcdcdc";
+            sv1.width = 0.4;
+            sv1.height = 0.4;
+            sv1.top = 200;
+            sv1.background = "#7AA6E2";
+            sv1.barSize = 10
+            // sv1.position = new BABYLON.Vector3(1, 1, 1)
+
+            Texture.addControl(sv1);
+
+            var tb1 = new BABYLON.GUI.TextBlock();
+            tb1.textWrapping = BABYLON.GUI.TextWrapping.WordWrap;
+            tb1.resizeToFit = true;
+            tb1.paddingTop = '100%';
+            // tb1.paddingLeft = "30px";
+            // tb1.paddingRight = "50px"
+            // tb1.paddingBottom = "40%";
+            // tb1.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+            tb1.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+            // tb1.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+            // tb1.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+            tb1.color = "red";
+            tb1.background = "black";
+            tb1.text = "TEXT START";
+            tb1.fontSize = "32px";
+
+            sv1.addControl(tb1);
 
             manager.addControl(holoGraphicBtton);
             // XR
