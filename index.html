@@ -175,7 +175,6 @@
             holoGraphicBtton.text = "false";
 
 
-            const Texture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI('ui');
             var sv1 = new BABYLON.GUI.ScrollViewer();
             sv1.thickness = 7;
             sv1.color = "#dcdcdc";
@@ -185,8 +184,10 @@
             sv1.background = "#7AA6E2";
             sv1.barSize = 10
             // sv1.position = new BABYLON.Vector3(1, 1, 1)
+            // const Texture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI('ui');
+            var Texture = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(sv1);
 
-            Texture.addControl(sv1);
+            // Texture.addControl(sv1);
 
             var tb1 = new BABYLON.GUI.TextBlock();
             tb1.textWrapping = BABYLON.GUI.TextWrapping.WordWrap;
@@ -201,7 +202,7 @@
             // tb1.textVerticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
             tb1.color = "red";
             tb1.background = "black";
-            tb1.text = "TEXT START";
+            tb1.text = "TEXT";
             tb1.fontSize = "32px";
 
             sv1.addControl(tb1);
