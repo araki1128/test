@@ -161,35 +161,40 @@
                 } else {
                     console.log('false')
                     holoGraphicBtton.text = "false"
+                    const xr = await scene.createDefaultXRExperienceAsync({
+                        sessionMode: 'immersive-vr',
+                        referenceSpeceType: 'unbounded'
+                        // floorMeshes: [environment.ground]
+                    });
                     status = true
-                }
+        }
             });
 
-            holoGraphicBtton.text = "false";
+        holoGraphicBtton.text = "false";
 
-            manager.addControl(holoGraphicBtton);
-            // XR
-            // const xrHelper = await scene.createDefaultXRExperienceAsync({
-            //     floorMeshes: [environment.ground]
-            // });
+        manager.addControl(holoGraphicBtton);
+        // XR
+        // const xrHelper = await scene.createDefaultXRExperienceAsync({
+        //     floorMeshes: [environment.ground]
+        // });
 
-            scene.enablePhysics();
+        scene.enablePhysics();
 
-            // WebXR追加
-            const xr = await scene.createDefaultXRExperienceAsync({
-                sessionMode: 'immersive-vr',
-                referenceSpeceType: 'unbounded'
-                // floorMeshes: [environment.ground]
-            });
+        // WebXR追加
+        // const xr = await scene.createDefaultXRExperienceAsync({
+        //     sessionMode: 'immersive-vr',
+        //     referenceSpeceType: 'unbounded'
+        //     // floorMeshes: [environment.ground]
+        // });
 
-            // xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
-            //     xrInput: xr.input,
-            //     jointMeshes: {
-            //         enablePhysics: true
-            //     }
-            // });
+        // xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
+        //     xrInput: xr.input,
+        //     jointMeshes: {
+        //         enablePhysics: true
+        //     }
+        // });
 
-            return scene;
+        return scene;
 
         };
         window.initFunction = async function () {
