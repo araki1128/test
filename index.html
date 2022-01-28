@@ -153,7 +153,7 @@
 
             let status = false
 
-            holoGraphicBtton.onPointerClickObservable.add(async () => {
+            holoGraphicBtton.onPointerClickObservable.add(() => {
                 if (status) {
                     console.log('true')
                     holoGraphicBtton.text = "true"
@@ -161,11 +161,7 @@
                 } else {
                     console.log('false')
                     holoGraphicBtton.text = "false"
-                    const xr = await scene.createDefaultXRExperienceAsync({
-                        sessionMode: 'immersive-vr',
-                        referenceSpeceType: 'unbounded'
-                        // floorMeshes: [environment.ground]
-                    });
+                    const xr = scene.createDefaultXRExperienceAsync();
                     status = true
         }
             });
