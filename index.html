@@ -153,7 +153,7 @@
 
             let status = false
 
-            holoGraphicBtton.onPointerClickObservable.add(() => {
+            holoGraphicBtton.onPointerClickObservable.add(async () => {
                 if (status) {
                     console.log('true')
                     holoGraphicBtton.text = "true"
