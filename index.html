@@ -154,9 +154,9 @@
             let status = false
 
             const config = { disableDefaultUI: true }
-            const xrHelper = await this.#scene.createDefaultXRExperienceAsync(config)
+            const xrHelper = await scene.createDefaultXRExperienceAsync(config)
 
-            holoGraphicBtton.onPointerClickObservable.add(() => {
+            holoGraphicBtton.onPointerClickObservable.add(async () => {
                 if (status) {
                     console.log('true')
                     holoGraphicBtton.text = "true"
@@ -164,6 +164,11 @@
                 } else {
                     console.log('false')
                     holoGraphicBtton.text = "false"
+                    console.log(xrHelper)
+                    await xrHelper.baseExperience.enterXRAsync(
+                        'immersive-vr',
+                        'local-floor'
+                    )
                     status = true
         }
             });
