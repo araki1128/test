@@ -153,6 +153,9 @@
 
             let status = false
 
+            const config = { disableDefaultUI: true }
+            const xrHelper = await this.#scene.createDefaultXRExperienceAsync(config)
+
             holoGraphicBtton.onPointerClickObservable.add(() => {
                 if (status) {
                     console.log('true')
@@ -161,7 +164,6 @@
                 } else {
                     console.log('false')
                     holoGraphicBtton.text = "false"
-                    const xr = scene.createDefaultXRExperienceAsync();
                     status = true
         }
             });
