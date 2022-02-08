@@ -186,9 +186,9 @@
             const xrHandFeature = xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
                 xrInput: xr.input,
                 jointMeshes: {
-                    // sourceMesh: BoxBuilder.CreateBox("jointParent", { size: 1 }),
-                    // keepOriginalVisible: true,
-                    disableDefaultHandMesh: true,
+                    sourceMesh: new BABYLON.BoxBuilder.CreateBox("jointParent", { size: 1 }),
+                    keepOriginalVisible: true,
+                    // disableDefaultHandMesh: true,
                     enablePhysics: true
                 }
                 // jointMeshes: {
