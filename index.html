@@ -195,13 +195,16 @@
                 // }
             });
 
+            // after the controllers were initialized
+            const rightHand = xrHandFeature.getHandByHandedness("right");
 
-            xrHandFeature.onHandAddedObservable.add((newHand) => {
+
+            rightHand.onHandAddedObservable.add((newHand) => {
                 // celebrate, we have a new hand!
                 scene.onBeforeRenderObservable.add(() => {
                     // get the real world wrist position on each frame
                     console.log(newHand);
-                    // console.log(newHand.trackedMeshes[0].position);
+                    console.log(newHand.trackedMeshes);
                 });
             });
 
