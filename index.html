@@ -169,16 +169,16 @@
 
             manager.addControl(holoGraphicBtton);
             // XR
-            const xr = await scene.createDefaultXRExperienceAsync();
+            // const xr = await scene.createDefaultXRExperienceAsync();
 
             scene.enablePhysics();
 
             // WebXR追加
-            // const xr = await scene.createDefaultXRExperienceAsync({
-            //     sessionMode: 'immersive-ar',
-            //     referenceSpeceType: 'unbounded'
-            //     // floorMeshes: [environment.ground]
-            // });
+            const xr = await scene.createDefaultXRExperienceAsync({
+                sessionMode: 'immersive-ar',
+                referenceSpeceType: 'unbounded'
+                // floorMeshes: [environment.ground]
+            });
 
             // positionScale: 3.0,
             // defaultHeight: 1.5
@@ -187,7 +187,8 @@
                 xrInput: xr.input,
                 jointMeshes: {
                     sourceMesh: BoxBuilder.CreateBox("jointParent", { size: 1 }),
-                    keepOriginalVisible: true
+                    keepOriginalVisible: true,
+                    enablePhysics: true
                     // disableDefaultHandMesh: true
                 }
                 // jointMeshes: {
@@ -204,7 +205,7 @@
                 // celebrate, we have a new hand!
                 scene.onBeforeRenderObservable.add(() => {
                     // get the real world wrist position on each frame
-                    // console.log(newHand);
+                    console.log(newHand);
                     console.log(newHand.trackedMeshes);
                 });
             });
