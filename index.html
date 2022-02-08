@@ -188,8 +188,11 @@
             const xrHandFeature = xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
                 xrInput: xr.input,
                 jointMeshes: {
-                    enablePhysics: true
+                    disableDefaultHandMesh: true
                 }
+                // jointMeshes: {
+                //     enablePhysics: true
+                // }
             });
 
 
