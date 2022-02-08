@@ -169,18 +169,16 @@
 
             manager.addControl(holoGraphicBtton);
             // XR
-            // const xrHelper = await scene.createDefaultXRExperienceAsync({
-            //     floorMeshes: [environment.ground]
-            // });
+            const xr = await scene.createDefaultXRExperienceAsync();
 
             scene.enablePhysics();
 
             // WebXR追加
-            const xr = await scene.createDefaultXRExperienceAsync({
-                sessionMode: 'immersive-ar',
-                referenceSpeceType: 'unbounded'
-                // floorMeshes: [environment.ground]
-            });
+            // const xr = await scene.createDefaultXRExperienceAsync({
+            //     sessionMode: 'immersive-ar',
+            //     referenceSpeceType: 'unbounded'
+            //     // floorMeshes: [environment.ground]
+            // });
 
             // positionScale: 3.0,
             // defaultHeight: 1.5
@@ -196,8 +194,8 @@
             });
 
             // after the controllers were initialized
-            const rightHand = xrHandFeature.getHandByHandedness("right");
-            console.log(rightHand)
+            // const rightHand = xrHandFeature.getHandByHandedness("right");
+            // console.log(rightHand)
 
 
             xrHandFeature.onHandAddedObservable.add((newHand) => {
