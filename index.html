@@ -183,23 +183,28 @@
             // positionScale: 3.0,
             // defaultHeight: 1.5
 
-            const xrHandFeature = xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
+            const featureManager = xr.baseExperience.featuresManager;
+
+            // const xrHandFeature = xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
+            //     xrInput: xr.input,
+            //     jointMeshes: {
+            //         disableDefaultHandMesh: true,
+            //         enablePhysics: true
+            //     }
+            //     // jointMeshes: {
+            //     //     enablePhysics: true
+            //     // }
+            // });
+
+            const xrHandFeature = featureManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
                 xrInput: xr.input,
-                jointMeshes: {
-                    sourceMesh: new BABYLON.BoxBuilder.CreateBox("jointParent", { size: 1 }),
-                    keepOriginalVisible: true,
-                    // disableDefaultHandMesh: true,
-                    enablePhysics: true
-                }
-                // jointMeshes: {
-                //     enablePhysics: true
-                // }
             });
 
             // after the controllers were initialized
             // const rightHand = xrHandFeature.getHandByHandedness("right");
             // console.log(rightHand)
 
+            console.log(xrHandFeature)
 
             xrHandFeature.onHandAddedObservable.add((newHand) => {
                 // celebrate, we have a new hand!
