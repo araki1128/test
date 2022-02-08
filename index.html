@@ -206,11 +206,12 @@
 
             xrHandFeature.onHandAddedObservable.add((newHand) => {
                 const rightHand = xrHandFeature.getHandByHandedness("right");
-                console.log(rightHand)
+                console.log(rightHand.jointMeshes)
+                console.log(rightHand.position)
+                console.log(newHand._handMesh);
                 // celebrate, we have a new hand!
                 scene.onBeforeRenderObservable.add(() => {
                     // get the real world wrist position on each frame
-                    // console.log(newHand);
                     // console.log(newHand.trackedMeshes);
                 });
             });
