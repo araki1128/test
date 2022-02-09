@@ -216,7 +216,7 @@
                 // console.log(newHand._handMesh);
                 // celebrate, we have a new hand!
                 scene.onBeforeRenderObservable.add(() => {
-                    // console.log(newHand._jointMeshes[4].position)
+                    console.log(newHand._jointMeshes[4].position._x)
                     // get the real world wrist position on each frame
                     // console.log(newHand.trackedMeshes);
                 });
