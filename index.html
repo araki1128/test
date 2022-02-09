@@ -208,19 +208,19 @@
 
             console.log(xrHandFeature)
 
-            scene.onPointerObservable.add((evt) => {
-                const pointerId = evt.event.pointerId;
-                const xrController = xr.pointerSelection.getXRControllerByPointerId(pointerId);
-                console.log(xrController)
-                const webxrHandObject = xrHandFeature.getHandByHandedness(xrController.uniqueId);
-                console.log(webxrHandObject)
-            });
+            // scene.onPointerObservable.add((evt) => {
+            //     const pointerId = evt.event.pointerId;
+            //     const xrController = xr.pointerSelection.getXRControllerByPointerId(pointerId);
+            //     console.log(xrController)
+            //     const webxrHandObject = xrHandFeature.getHandByHandedness(xrController.uniqueId);
+            //     console.log(webxrHandObject)
+            // });
 
-            xrHandFeature.onHandAddedObservable.add((newHand) => {
+            xrHandFeature.onControllerAddedObservable.add((newHand) => {
                 const rightHand = xrHandFeature.getHandByHandedness("right");
                 // console.log(rightHand._jointMeshes)
                 // console.log(rightHand)
-                // console.log(newHand);
+                console.log(newHand);
                 // console.log(newHand.handMesh);
                 // celebrate, we have a new hand!
                 scene.onBeforeRenderObservable.add(() => {
