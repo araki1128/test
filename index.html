@@ -208,15 +208,22 @@
 
             console.log(xrHandFeature)
 
+            scene.onPointerObservable.add((evt) => {
+                const pointerId = evt.event.pointerId;
+                const xrController = xr.pointerSelection.getXRControllerByPointerId();
+                const webxrHandObject = xrHapointerIdndFeature.getHandByControllerId(xrController.uniqueId);
+                console.log(webxrHandObject)
+            });
+
             xrHandFeature.onHandAddedObservable.add((newHand) => {
                 const rightHand = xrHandFeature.getHandByHandedness("right");
                 // console.log(rightHand._jointMeshes)
-                console.log(rightHand)
-                console.log(newHand);
-                console.log(newHand.handMesh);
+                // console.log(rightHand)
+                // console.log(newHand);
+                // console.log(newHand.handMesh);
                 // celebrate, we have a new hand!
                 scene.onBeforeRenderObservable.add(() => {
-                    console.log(newHand._jointMeshes[4].position._x)
+                    // console.log(newHand._jointMeshes[4].position._x)
                     // get the real world wrist position on each frame
                     // console.log(newHand.trackedMeshes);
                 });
