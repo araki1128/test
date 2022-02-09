@@ -210,7 +210,7 @@
 
             scene.onPointerObservable.add((evt) => {
                 const pointerId = evt.event.pointerId;
-                const xrController = xr.pointerSelection.getXRControllerByPointerId();
+                const xrController = xr.pointerSelection.getXRControllerByPointerId(pointerId);
                 const webxrHandObject = xrHandFeature.getHandByControllerId(xrController.uniqueId);
                 console.log(webxrHandObject)
             });
