@@ -200,7 +200,8 @@
                 xrInput: xr.input,
                 jointMeshes: {
                     // disableDefaultHandMesh: true,
-                    useDefaultHands: true
+                    useDefaultHands: true,
+                    enablePhysics: true
                 }
             });
 
@@ -208,22 +209,23 @@
 
             console.log(xrHandFeature)
 
-            // scene.onPointerObservable.add((evt) => {
-            //     const pointerId = evt.event.pointerId;
-            //     const xrController = xr.pointerSelection.getXRControllerByPointerId(pointerId);
-            //     console.log(xrController)
-            //     const webxrHandObject = xrHandFeature.getHandByHandedness(xrController.uniqueId);
-            //     console.log(webxrHandObject)
-            // });
+            scene.onPointerObservable.add((evt) => {
+                const pointerId = evt.event.pointerId;
+                const xrController = xr.pointerSelection.getXRControllerByPointerId(pointerId);
+                console.log(xrController)
+                const webxrHandObject = xrHandFeature.getHandByHandedness(xrController.uniqueId);
+                console.log(webxrHandObject)
+            });
 
-            xrHandFeature.onControllerAddedObservable.add((newHand) => {
+            xrHandFeature.onHandAddedObservable.add((newHand) => {
                 const rightHand = xrHandFeature.getHandByHandedness("right");
                 // console.log(rightHand._jointMeshes)
-                // console.log(rightHand)
+                console.log(rightHand)
                 console.log(newHand);
                 // console.log(newHand.handMesh);
                 // celebrate, we have a new hand!
                 scene.onBeforeRenderObservable.add(() => {
+                    console.log(newHand);
                     // console.log(newHand._jointMeshes[4].position._x)
                     // get the real world wrist position on each frame
                     // console.log(newHand.trackedMeshes);
