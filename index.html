@@ -198,6 +198,9 @@
 
             const xrHandFeature = featureManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
                 xrInput: xr.input,
+                jointMeshes: {
+                    disableDefaultHandMesh: true
+                }
             });
 
             // after the controllers were initialized
