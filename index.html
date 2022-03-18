@@ -1,264 +1,158 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Babylon.js sample code</title>
 
-    <title>Babylon.js sample code</title>
+        <!-- Babylon.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
+        <script src="https://assets.babylonjs.com/generated/Assets.js"></script>
+        <script src="https://preview.babylonjs.com/ammo.js"></script>
+        <script src="https://preview.babylonjs.com/cannon.js"></script>
+        <script src="https://preview.babylonjs.com/Oimo.js"></script>
+        <script src="https://preview.babylonjs.com/earcut.min.js"></script>
+        <script src="https://preview.babylonjs.com/babylon.js"></script>
+        <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+        <script src="https://preview.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
+        <script src="https://preview.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
+        <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+        <script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
+        <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
+        <script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
 
-    <!-- Babylon.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
-    <script src="https://preview.babylonjs.com/ammo.js"></script>
-    <script src="https://preview.babylonjs.com/cannon.js"></script>
-    <script src="https://preview.babylonjs.com/Oimo.js"></script>
-    <script src="https://preview.babylonjs.com/earcut.min.js"></script>
-    <script src="https://preview.babylonjs.com/babylon.js"></script>
-    <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
-    <script src="https://preview.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
-    <script src="https://preview.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
-    <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
-    <script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
-    <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
-    <script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
+        <style>
+            html, body {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
 
-    <style>
-        html,
-        body {
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
-
-        #renderCanvas {
-            width: 100%;
-            height: 100%;
-            touch-action: none;
-        }
-    </style>
-</head>
-
+            #renderCanvas {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+            }
+        </style>
+    </head>
 <body>
     <canvas id="renderCanvas"></canvas>
     <script>
         var canvas = document.getElementById("renderCanvas");
 
-        var engine = null;
-        var scene = null;
-        var sceneToRender = null;
-        var createDefaultEngine = function () { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true, disableWebGL2Support: false }); };
-        var createScene = async function () {
-
-            // This creates a basic Babylon Scene object (non-mesh)
-            // これにより、基本的なバビロンシーンオブジェクト（非メッシュ）が作成されます。
-            var scene = new BABYLON.Scene(engine);
-
-            // scene.gravity = new BABYLON.Vector3(0, -10, 0);
-
-            // This creates and positions a free camera (non-mesh)
-            // これにより、無料のカメラ（非メッシュ）が作成および配置されます
-            var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 1, -5), scene);
-            // camera.applyGravity = true;
-            // FreeCamera
-            // var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 10, new BABYLON.Vector3(0, 1, -5), scene);
-
-            // camera.setPosition(new BABYLON.Vector3(0, 0, -6));
-
-            // This targets the camera to scene origin
-            // これは、カメラをシーンの原点に向けます
-            camera.setTarget(BABYLON.Vector3.Zero());
-
-            // This attaches the camera to the canvas
-            // これにより、カメラがキャンバスに接続されます
-            camera.attachControl(canvas, true);
-
-            // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-            // これにより、0,1,0を狙うライトが作成されます-空（メッシュ以外）に向けて
-            var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
-
-            // Default intensity is 1. Let's dim the light a small amount
-            // デフォルトの強度は1です。ライトを少し暗くしてみましょう。
-            light.intensity = 0.7;
-
-            // Our built-in 'sphere' shape.
-            // 組み込みの「球」形状。
-            var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", { diameter: 1.4, segments: 32 });
-
-            // Move the sphere upward 1/2 its height
-            // 球を高さの1/2だけ上に移動します
-            sphere.position.y = 1;
-
-            sphere.material = new BABYLON.StandardMaterial("sphereMat");
-
-            var ground = BABYLON.Mesh.CreateGround("ground1", 2, 2, 4);
-
-            ground.position.y = 0.8;
-
-            // 環境メッシュ作成
-            // const environment = scene.createDefaultEnvironment();
-
-            // GUI
-            var plane = BABYLON.Mesh.CreatePlane("plane", 1);
-            plane.position = new BABYLON.Vector3(1.4, 1.5, 0.4)
-            var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(plane);
-            var panel = new BABYLON.GUI.StackPanel();
-            advancedTexture.addControl(panel);
-            var header = new BABYLON.GUI.TextBlock();
-            header.text = "GUI";
-            header.height = "100px";
-            header.color = "white";
-            header.textHorizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-            header.fontSize = "120"
-            panel.addControl(header);
-            var picker = new BABYLON.GUI.ColorPicker();
-            picker.value = sphere.material.diffuseColor;
-            picker.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
-            picker.height = "350px";
-            picker.width = "350px";
-            // 球体のカラー変更
-            picker.onValueChangedObservable.add(function (value) {
-                sphere.material.diffuseColor.copyFrom(value);
-            });
-            panel.addControl(picker);
-
-            let simpleBtton = BABYLON.GUI.Button.CreateSimpleButton("onoff", "off");
-
-            let throwBalls = false
-            simpleBtton.onPointerClickObservable.add(() => {
-                console.log(throwBalls)
-                if (!throwBalls) {
-                    console.log(throwBalls)
-                    simpleBtton.background = "green";
-                    simpleBtton.textBlock.text = 'on';
-                    throwBalls = true
-                } else {
-                    console.log(throwBalls)
-                    simpleBtton.background = "red";
-                    simpleBtton.textBlock.text = 'off';
-                    throwBalls = false
-                }
-            });
-
-            simpleBtton.width = 0.5;
-            simpleBtton.height = "80px";
-            simpleBtton.color = "white";
-            simpleBtton.background = "red";
-            simpleBtton.fontSize = 60;
-            panel.addControl(simpleBtton);
-
-
-            const manager = new BABYLON.GUI.GUI3DManager(scene);
-            let holoGraphicBtton = new BABYLON.GUI.HolographicButton('holoGraphicBtton');
-
-            let status = false
-
-            holoGraphicBtton.onPointerClickObservable.add(() => {
-                if (status) {
-                    console.log('true')
-                    holoGraphicBtton.text = "true"
-                    status = false
-                } else {
-                    console.log('false')
-                    holoGraphicBtton.text = "false"
-                    status = true
-                }
-            });
-
-            holoGraphicBtton.text = "false";
-
-            manager.addControl(holoGraphicBtton);
-            // XR
-            // const xr = await scene.createDefaultXRExperienceAsync();
-
-            scene.enablePhysics();
-
-            // WebXR追加
-            const xr = await scene.createDefaultXRExperienceAsync({
-                sessionMode: 'immersive-ar',
-                referenceSpeceType: 'unbounded'
-                // floorMeshes: [environment.ground]
-            });
-
-            // positionScale: 3.0,
-            // defaultHeight: 1.5
-
-            const featureManager = xr.baseExperience.featuresManager;
-
-            // const xrHandFeature = xr.baseExperience.featuresManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
-            //     xrInput: xr.input,
-            //     jointMeshes: {
-            //         disableDefaultHandMesh: true,
-            //         enablePhysics: true
-            //     }
-            //     // jointMeshes: {
-            //     //     enablePhysics: true
-            //     // }
-            // });
-
-            const xrHandFeature = featureManager.enableFeature(BABYLON.WebXRFeatureName.HAND_TRACKING, "latest", {
-                xrInput: xr.input,
-                jointMeshes: {
-                    // disableDefaultHandMesh: true,
-                    useDefaultHands: true,
-                    enablePhysics: true
-                }
-            });
-
-            // after the controllers were initialized
-
-            console.log(xrHandFeature)
-
-            // scene.onPointerObservable.add((evt) => {
-            //     const pointerId = evt.event.pointerId;
-            //     const xrController = xr.pointerSelection.getXRControllerByPointerId(pointerId);
-            //     console.log(xrController)
-            //     const webxrHandObject = xrHandFeature.getHandByHandedness(xrController.uniqueId);
-            //     console.log(webxrHandObject)
-            // });
-
-            xrHandFeature.onHandAddedObservable.add((newHand) => {
-                const rightHand = xrHandFeature.getHandByHandedness("right");
-                // console.log(rightHand._jointMeshes)
-                // console.log(rightHand)
-                // console.log(newHand);
-                // console.log(newHand.handMesh);
-                // celebrate, we have a new hand!
-                scene.onBeforeRenderObservable.add(() => {
-                    console.log(newHand);
-                    console.log(newHand._jointMeshes[4].position.x)
-                    // get the real world wrist position on each frame
-                    // console.log(newHand.trackedMeshes);
-                });
-            });
-
-            return scene;
-
-        };
-        window.initFunction = async function () {
-
-
-            var asyncEngineCreation = async function () {
-                try {
-                    return createDefaultEngine();
-                } catch (e) {
-                    console.log("the available createEngine function failed. Creating the default engine instead");
-                    return createDefaultEngine();
-                }
-            }
-
-            window.engine = await asyncEngineCreation();
-            if (!engine) throw 'engine should not be null.';
-            window.scene = createScene();
-        };
-        initFunction().then(() => {
-            scene.then(returnedScene => { sceneToRender = returnedScene; });
-
+        var startRenderLoop = function (engine, canvas) {
             engine.runRenderLoop(function () {
                 if (sceneToRender && sceneToRender.activeCamera) {
                     sceneToRender.render();
                 }
             });
+        }
+
+        var engine = null;
+        var scene = null;
+        var sceneToRender = null;
+        var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false}); };
+        var createScene = async function () {
+        
+            // This creates a basic Babylon Scene object (non-mesh)
+            var scene = new BABYLON.Scene(engine);
+        
+            // This creates and positions a free camera (non-mesh)
+            var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+        
+            // This targets the camera to scene origin
+            camera.setTarget(BABYLON.Vector3.Zero());
+        
+            // This attaches the camera to the canvas
+            camera.attachControl(canvas, true);
+        
+            // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+            var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+        
+            // Default intensity is 1. Let's dim the light a small amount
+            light.intensity = 0.7;
+        
+            // Our built-in 'sphere' shape. Params: name, subdivs, size, scene
+            var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
+        
+            // Move the sphere upward 1/2 its height
+            sphere.position.y = 1;
+        
+            // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
+            var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
+        
+            // GUI
+            var plane = BABYLON.Mesh.CreatePlane("plane", 2);
+            plane.parent = sphere;
+            plane.position.y = 2;
+        
+            var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateForMesh(plane);
+        
+            var button1 = BABYLON.GUI.Button.CreateSimpleButton("but1", "Click Me");
+            button1.width = 1;
+            button1.height = 0.4;
+            button1.color = "white";
+            button1.fontSize = 50;
+            button1.background = "green";
+            let button_Check = false
+            button1.onPointerUpObservable.add(function() {
+                if(!button_Check) {
+                    button1.background = "red";
+                    button_Check = true;
+                } else {
+                    button1.background = "green";
+                    button_Check = false;
+                }
+                // alert("you did it!");
+            });
+            advancedTexture.addControl(button1);
+        
+        
+            // const FollowBehavior = new BABYLON.FollowBehavior()
+            
+            var xrHelper = await scene.createDefaultXRExperienceAsync()
+        
+            console.log(xrHelper)
+            
+            let xrState
+        
+            if (xrHelper) {
+              if (xrHelper.baseExperience) {
+                xrState = xrHelper.baseExperience.state
+                xrHelper.baseExperience.onStateChangedObservable.add(val => {
+                    if (xrState === val) return
+                    xrState = val
+        
+                    if (xrState === new BABYLON.WebXRState.IN_XR) {
+                        console.log('aaaa')
+                    }
+                }) 
+              }
+            }
+        
+            return scene;
+        
+        };
+                window.initFunction = async function() {
+                    
+                    
+                    var asyncEngineCreation = async function() {
+                        try {
+                        return createDefaultEngine();
+                        } catch(e) {
+                        console.log("the available createEngine function failed. Creating the default engine instead");
+                        return createDefaultEngine();
+                        }
+                    }
+
+                    window.engine = await asyncEngineCreation();
+        if (!engine) throw 'engine should not be null.';
+        startRenderLoop(engine, canvas);
+        window.scene = createScene();};
+        initFunction().then(() => {scene.then(returnedScene => { sceneToRender = returnedScene; });
+                            
         });
 
         // Resize
@@ -267,5 +161,4 @@
         });
     </script>
 </body>
-
 </html>
